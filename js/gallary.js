@@ -64,7 +64,6 @@ const images = [
   },
 ];
 
-  // Створення розмітки галереї
     const galleryContainer = document.querySelector('.gallery');
     const galleryMarkup = images.map(({ preview, original, description }) => `
       <li class="gallery-item">
@@ -81,12 +80,9 @@ const images = [
     
     galleryContainer.innerHTML = galleryMarkup;
 
-    // Модальне вікно
     const modal = document.querySelector('.modal');
     const modalImage = document.querySelector('.modal-image');
-    const closeButton = document.querySelector('.modal-close');
-
-    // Відкриття модального вікна
+    
     galleryContainer.addEventListener('click', (event) => {
       event.preventDefault();
       
@@ -102,21 +98,14 @@ const images = [
       modal.classList.add('is-open');
     });
 
-    // Закриття модального вікна
-    closeButton.addEventListener('click', () => {
-      modal.classList.remove('is-open');
-    });
-
-    // Закриття по кліку на оверлей
     modal.addEventListener('click', (event) => {
       if (event.target === modal) {
         modal.classList.remove('is-open');
       }
     });
 
-    // Закриття по ESC
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-        modal.classList.remove('is-open');
-      }
-    });
+    modalImage.addEventListener('click', () => closeModal());
+
+    function closeModal() {
+      modal.classList.remove(`is-open`);
+    }
