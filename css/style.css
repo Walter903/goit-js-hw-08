@@ -1,8 +1,4 @@
- body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-    
+
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -43,11 +39,6 @@
       transition: opacity 0.3s;
     }
     
-    .modal.is-open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    
     .modal-content {
       max-width: 90%;
       max-height: 90%;
@@ -59,13 +50,4 @@
       object-fit: contain;
     }
     
-    .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-    }
+   

@@ -64,48 +64,35 @@ const images = [
   },
 ];
 
+    // Створення галереї
     const galleryContainer = document.querySelector('.gallery');
-    const galleryMarkup = images.map(({ preview, original, description }) => `
+    galleryContainer.innerHTML = images.map(({ preview, original, description }) => `
       <li class="gallery-item">
-        <a class="gallery-link" href="${original}">
-          <img
-            class="gallery-image"
-            src="${preview}"
-            data-source="${original}"
-            alt="${description}"
-          />
-        </a>
+        <img
+          class="gallery-image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
       </li>
     `).join('');
-    
-    galleryContainer.innerHTML = galleryMarkup;
 
-    const modal = document.querySelector('.modal');
-    const modalImage = document.querySelector('.modal-image');
-    
+    // Обробник кліків по галереї
     galleryContainer.addEventListener('click', (event) => {
-      event.preventDefault();
-      
-      if (event.target.nodeName !== 'IMG') {
-        return;
-      }
-      
-      const largeImageUrl = event.target.dataset.source;
-      const altText = event.target.alt;
-      
-      modalImage.src = largeImageUrl;
-      modalImage.alt = altText;
-      modal.classList.add('is-open');
-    });
+      const clickedImg = event.target.closest('.gallery-image');
+      if (!clickedImg) return;
 
-    modal.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        modal.classList.remove('is-open');
-      }
-    });
-
-    modalImage.addEventListener('click', () => closeModal());
-
-    function closeModal() {
-      modal.classList.remove(`is-open`);
-    }
+      const largeImageUrl = clickedImg.dataset.source;
+      const altText = clickedImg.alt;
+        
+      // Створюємо модальне вікно з зображенням
+      const instance = basicLightbox.create(`
+        <div class="modal">
+          <div class="modal-content">
+            <img class="modal-image" src="${largeImageUrl}" alt="${altText}">
+          </div>
+        </div>
+        `)
+      // Показуємо модальне вікно
+      instance.show();
+       });
