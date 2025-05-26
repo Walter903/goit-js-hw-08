@@ -23,4 +23,12 @@
   transform: scale(1.03);
 }
 
+.gallery-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
 
+.modal-content {
+  position: relative;
+}

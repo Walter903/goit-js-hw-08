@@ -67,16 +67,20 @@ const images = [
 const galleryContainer = document.querySelector('.gallery');
 galleryContainer.innerHTML = images.map(({ preview, original, description }) => `
   <li class="gallery-item">
-    <img
-      class="gallery-image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
+    <a class="gallery-link" href="${original}">
+      <img
+        class="gallery-image"
+        src="${preview}"
+        data-source="${original}"
+        alt="${description}"
+      />
+    </a>
   </li>
 `).join('');
 
-  galleryContainer.addEventListener('click', (event) => {
+galleryContainer.addEventListener('click', (event) => {
+  event.preventDefault(); 
+  
   const clickedImg = event.target.closest('.gallery-image');
   if (!clickedImg) return;
 
@@ -90,16 +94,11 @@ galleryContainer.innerHTML = images.map(({ preview, original, description }) => 
       </div>
     </div>
   `, {
-    onShow: () => {
-      
-      instance.element().addEventListener('click', closeModal);
-    },
-   
+    onShow: (instance) => {
+      instance.element().addEventListener('click', () => instance.close());
+       },
+    
   });
-
-  function closeModal() {
-    instance.close();
-  }
-
+  
   instance.show();
 });
